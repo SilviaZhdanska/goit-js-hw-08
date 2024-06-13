@@ -74,13 +74,12 @@ function handlerGetImage(event) {
   }
 
   const parent = evt.target.closest(".gallery-item");
-  const currentId = parent.dataset;
-  const currentImage = images.find(({ original }) => original === currentImage);
+  const currentId = parent.dataset.original;
 }
 
 const instance = basicLightbox.create(`
     <div class="modal">
-      <img src="${currentImage.original}" alt="${currentImage.description}">
+      <img src="${currentId.original}" alt="${currentId.description}">
       
     </div>
   `);
