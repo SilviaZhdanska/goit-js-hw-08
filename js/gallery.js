@@ -69,28 +69,32 @@ list.insertAdjacentHTML("afterbegin", createMarkup(images));
 list.addEventListener("click", handlerGetImage);
 
 function handlerGetImage(event) {
+  event.preventDefault();
+
   if (event.currentTarget === event.target) {
     return;
   }
 
-  const parent = evt.target.closest(".gallery-item");
-  const currentId = parent.dataset.original;
-}
+  const originalImage = event.target.dataset.source;
 
-const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(`
     <div class="modal">
-      <img src="${currentId.original}" alt="${currentId.description}">
-      
+      <img src="${originalImage}" alt="${event.target.alt}">
     </div>
   `);
 
-instance.show();
+  instance.show();
+}
 
 function createMarkup(arr) {
   return arr
     .map(
       ({ preview, original, description }) => `
-      <li class="gallery-item"><a class="gallery-link" href="${original}"><img class="gallery-image" src="${preview}" data-sourse ="${original}" alt="${description}"</a></li>
+      <li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+      <img class="gallery-image" src="${preview}" data-source ="${original}" alt="${description}">
+      </a>
+      </li>
         `
     )
     .join("");
